@@ -6,9 +6,15 @@ class TrainOptions():
         self.initialized = False
     def initialize(self):
         self.parser.add_argument('--name', type=str, default='KTH', help='name of experiment')
+        self.parser.add_argument('--data_path', type=str, default='', help='data path')
         self.parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids')
-        self.parser.add_argument("--batch_size", type=int, default=1, help="Mini-batch size")
-        self.parser.add_argument('--image_size', type=int, default=128, help='image size')
+        self.parser.add_argument("--batch_size", type=int, default=1, help="Mini-batch size")#?????
+        self.parser.add_argument('--image_size_x', type=int, default=64, help='image size x')
+        self.parser.add_argument('--image_size_y', type=int, default=64, help='image size y')
+        self.parser.add_argument('--data_max', type=float, default=100, help='data max')
+        self.parser.add_argument('--data_min', type=float, default=0, help='data min')
+        self.parser.add_argument('--train_start', type=int, default=0, help='train start')
+        self.parser.add_argument('--train_end', type=int, default=4000, help='train end')
 
 
         self.parser.add_argument('--K', type=int, default=10, help='Number of frames to observe from the past')

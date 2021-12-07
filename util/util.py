@@ -1,7 +1,7 @@
 import random
 import numpy as np
 import torchvision.utils as vutils
-
+import os
 def get_minibatches_idx(n, minibatch_size, shuffle=False):
   """
   Used to shuffle the dataset at each iteration.
@@ -67,6 +67,20 @@ def load_kth_data(f_name, data_path, image_size, K, T):
         inputs.append(transforms.ToTensor()(img.copy()))
     inputs = fore_transform(torch.stack(inputs, dim=-1))
     return inputs
+def load_heat_data(data_path, start_idx,end_idx,image_size,dmax=100,dmin=0):#image_size: [x,y]
+    data_array=np.zeros((end_idx-start_idx,1,image_size[0],image_size[1]))
+    for i in range(start_idx,end_idx):
+        data_array[i]=np.fromfile(os.path.join(data_path,"%d.dat" % i),dtype=np.float32).reshape((1,image_size[0],image_size[1]))
+    data_array=(data_array-dmin)/(dmax-dmin)
+    return data_array
+
+def load_heat_sample(data_array, start_idx, K, T):
+    inputs=[]
+    for i in range(start_idx,start_idx+K+T):
+        inputs.append(data_array[i])
+    inputs = fore_transform(torch.stack(inputs, dim=-1))
+    return inputs
+
 
 def fore_transform(images):
     return images * 2 - 1
