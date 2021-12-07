@@ -139,7 +139,7 @@ class STMFModel(BaseModel):
             self.backward_G()
             self.optimizer_G.step()
         else:
-            if self.opt.D_G_switch == 'adaptive':
+            if self.opt.D_G_switch == 'adaptive':#unfinished
                 if self.updateD:
                     self.optimizer_D.zero_grad()
                     self.backward_D()
