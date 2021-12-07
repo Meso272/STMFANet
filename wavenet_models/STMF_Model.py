@@ -45,7 +45,7 @@ class STMFModel(BaseModel):
                                                 lr=opt.lr, betas=(opt.beta1, 0.999))
 
             if opt.adversarial:
-                self.discriminator = STMF_network.define_discriminator([opt.image_size_x,opt.image_size_y], opt.c_dim, self.K, self.T,
+                self.discriminator = STMF_network.define_discriminator([opt.image_size_x,opt.image_size_y], opt.c_dim, self.opt.K, self.opt.T,
                                                                           opt.df_dim, gpu_ids=self.gpu_ids)
                 self.loss_d = torch.nn.BCELoss()
                 self.optimizer_D = torch.optim.Adam(self.discriminator.parameters(),
@@ -207,10 +207,10 @@ class STMFModel(BaseModel):
         current_state = {
             "epoch": epoch,
             "generator": self.generator.cpu().state_dict(),
-            "discriminator": self.discriminator.cpu().state_dict(),
+            "discriminator": self.discriminator.cpu().state_dict() if self.opt.adversarial else None,
             "optimizer_G": self.optimizer_G.state_dict(),
-            "optimizer_D": self.optimizer_D.state_dict(),
-            "updateD": self.updateD,
+            "optimizer_D": self.optimizer_D.state_dict() if self.opt.adversarial else None,
+            "updateD": self.updateD if self.opt.adversarial else None,
             "updateG": self.updateG,
         }
         save_filename = '%s_model.pth.tar' % (label)
@@ -231,7 +231,7 @@ class STMFModel(BaseModel):
             self.generator.load_state_dict(snapshot['generator'])
             if self.is_train:
                 self.optimizer_G.load_state_dict(snapshot["optimizer_G"])
-                if not self.opt.no_adversarial:
+                if self.opt.adversarial:
                     self.discriminator.load_state_dict(snapshot['discriminator'])
                     self.optimizer_D.load_state_dict(snapshot["optimizer_D"])
             self.updateD = snapshot['updateD']
