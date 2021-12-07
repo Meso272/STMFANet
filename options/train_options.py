@@ -44,6 +44,7 @@ class TrainOptions():
         self.parser.add_argument('--which_epoch', type=str, default='latest', help='laod which epoch')
         self.parser.add_argument("--alpha", type=float, dest="alpha", default=1.0, help="Image loss weight")
         self.parser.add_argument("--beta", type=float, default=1.0, help='D loss weight')
+        self.parser.add_argument("--beta1", type=float, default=0.9, help='Adam Beta1')
         self.parser.add_argument('--adversarial', action='store_true', help='do not use the adversarial loss')
         self.parser.add_argument('--lr_policy', type=str, default='step',
                                  help='learning rate policy: lambda|step|plateau')
