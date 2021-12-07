@@ -50,11 +50,13 @@ def main():
                             writer.add_scalar('loss/%s' % (key), errors[key], total_steps / opt.batch_size)
 
                         util.print_current_errors(epoch, total_steps, errors, opt.checkpoints_dir, opt.name)
+                    '''
                     if total_steps % opt.display_freq == 0:
-                        print('total_steps % opt.display_freq == 0')
+                        print('total_steps modes opt.display_freq == 0')
                         visuals = model.get_current_visuals()
                         grid = util.visual_grid(visuals['seq_batch'], visuals['pred'], opt.K, opt.T)
                         writer.add_image('current_batch', grid, total_steps / opt.batch_size)
+                    '''
                     if total_steps % opt.save_latest_freq == 0:
                         print('saving the latest model (epoch %d, total_steps %d)' %
                               (epoch, total_steps))
