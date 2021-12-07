@@ -28,6 +28,7 @@ class TrainOptions():
                                  help='reduction factor of transition blocks. Note : reduction value is inverted to compute compression')
         self.parser.add_argument('--bottleneck', type=bool, default=True, help='use bottleneck or not')
         self.parser.add_argument('--gf_dim', type=int, default=16, help='base number of channels')
+        self.parser.add_argument('--df_dim', type=int, default=16, help='base number of channels')
 
 
         self.parser.add_argument('--checkpoints_dir', type=str, default='./ckpts', help='models are saved in this folder')
