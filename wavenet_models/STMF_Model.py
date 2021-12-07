@@ -17,14 +17,14 @@ class STMFModel(BaseModel):
 
 
         if len(self.opt.gpu_ids)>0:
-            self.state = Variable(torch.zeros(self.opt.batch_size, 256, int(self.opt.image_size/8), int(self.opt.image_size/8)).cuda(), requires_grad = False)
+            self.state = Variable(torch.zeros(self.opt.batch_size, 256, int(self.opt.image_size_x/8), int(self.opt.image_size_y/8)).cuda(), requires_grad = False)
         else:
-            self.state = Variable(torch.zeros(self.opt.batch_size, 256, int(self.opt.image_size/8), int(self.opt.image_size/8)), requires_grad = False)
+            self.state = Variable(torch.zeros(self.opt.batch_size, 256, int(self.opt.image_size_x/8), int(self.opt.image_size_y/8)), requires_grad = False)
 
 
         self.inputs = []
         for i in range(self.opt.K + self.opt.T):
-            self.inputs.append(self.Tensor(self.opt.batch_size, self.opt.c_dim, self.opt.image_size, self.opt.image_size))
+            self.inputs.append(self.Tensor(self.opt.batch_size, self.opt.c_dim, self.opt.image_size_x, self.opt.image_size_y))
 
         self.generator = STMF_network.define_generator(opt)
 
@@ -43,7 +43,7 @@ class STMFModel(BaseModel):
                                                 lr=opt.lr, betas=(opt.beta1, 0.999))
 
             if opt.adversarial:
-                self.discriminator = STMF_network.define_discriminator(opt.image_size, opt.c_dim, self.K, self.T,
+                self.discriminator = STMF_network.define_discriminator([opt.image_size_x,opt.image_size_y], opt.c_dim, self.K, self.T,
                                                                           opt.df_dim, gpu_ids=self.gpu_ids)
                 self.loss_d = torch.nn.BCELoss()
                 self.optimizer_D = torch.optim.Adam(self.discriminator.parameters(),
