@@ -25,7 +25,7 @@ class Generator(nn.Module):
         self.K = opt.K
         self.T = opt.T
         self.batch_size = opt.batch_size
-        self.image_size = [opt.image_size, opt.image_size]
+        self.image_size = [opt.image_size_x, opt.image_size_y]
 
         self.encoder = define_encoder(opt)
         #num_features = 128
