@@ -6,7 +6,7 @@ class TrainOptions():
         self.initialized = False
     def initialize(self):
         self.parser.add_argument('--name', type=str, default='KTH', help='name of experiment')
-        self.parser.add_argument('--data_path', type=str, default='', help='data path')
+        self.parser.add_argument('--data_path', type=str, default='/home/jinyang.liu/lossycompression/HeatData/data_64_100_rd', help='data path')
         self.parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids')
         self.parser.add_argument("--batch_size", type=int, default=1, help="Mini-batch size")#?????
         self.parser.add_argument('--image_size_x', type=int, default=64, help='image size x')
