@@ -5,7 +5,7 @@ class TrainOptions():
         self.parser = argparse.ArgumentParser()
         self.initialized = False
     def initialize(self):
-        self.parser.add_argument('--name', type=str, default='KTH', help='name of experiment')
+        self.parser.add_argument('--name', type=str, default='Heat', help='name of experiment')
         self.parser.add_argument('--data_path', type=str, default='/home/jinyang.liu/lossycompression/HeatData/data_64_100_rd', help='data path')
         self.parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids')
         self.parser.add_argument("--batch_size", type=int, default=1, help="Mini-batch size")#?????
@@ -30,13 +30,13 @@ class TrainOptions():
         self.parser.add_argument('--gf_dim', type=int, default=16, help='base number of channels')
 
 
-        self.parser.add_argument('--checkpoints_dir', type=str, default='./checkpoints', help='models are saved in this folder')
+        self.parser.add_argument('--checkpoints_dir', type=str, default='./ckpts', help='models are saved in this folder')
         self.parser.add_argument('--tensorboard_dir', type=str, default='./tb', help='for tensorboard visualization')
         self.parser.add_argument('--txtroot', type=str, default='./data/', help='location of data txt file, need to set')
         self.parser.add_argument('--data_root', type=str, default='./data', help='data path')
 
         self.parser.add_argument("--lr", type=float, default=0.0001, help="Base Learning Rate")
-        self.parser.add_argument('--nepoch', type=int, default=100, help='# of epoch at starting learning rate')
+        self.parser.add_argument('--nepoch', type=int, default=100, help='# of epoch ')
         self.parser.add_argument('--nepoch_decay', type=str, default=100, help='# of epoches at starting learning rate')
         self.parser.add_argument('--continue_train', type=bool, default=False, help='continue train')
         self.parser.add_argument('--which_epoch', type=str, default='latest', help='laod which epoch')

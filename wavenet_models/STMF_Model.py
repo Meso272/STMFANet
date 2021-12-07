@@ -15,7 +15,9 @@ class STMFModel(BaseModel):
         BaseModel.initialize(self, opt)
         self.opt = opt
 
-
+        self.save_dir=os.path.join(opt.checkpoints_dir,opt.name)
+        if not os.path.exists(self.save_dir):
+            os.makedirs(self.save_dir)
         if len(self.opt.gpu_ids)>0:
             self.state = Variable(torch.zeros(self.opt.batch_size, 256, int(self.opt.image_size_x/8), int(self.opt.image_size_y/8)).cuda(), requires_grad = False)
         else:
