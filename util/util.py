@@ -146,5 +146,5 @@ def print_current_errors(epoch, i, errors, checkpoints_dir, name):
             message += '%s: %.3f ' %(k,v)
 
     print(message)
-    with open(self.log_name, 'a') as log_file:
+    with open(log_name, 'a') as log_file:
         log_file.write('%s \n' % message)
