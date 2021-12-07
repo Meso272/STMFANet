@@ -24,7 +24,7 @@ def main():
     writer = SummaryWriter(log_dir=os.path.join(opt.tensorboard_dir, opt.name))
     with Parallel(n_jobs = opt.batch_size) as parallel:
         for epoch in range(opt.start_epoch, opt.nepoch + opt.nepoch_decay + 1):
-            mini_batches = util.get_minibatches_idx(len(data_array), opt.batch_size, shuffle=True)
+            mini_batches = util.get_minibatches_idx(len(data_array)-opt.K-opt.T, opt.batch_size, shuffle=True)
 
             for _, batchidx  in mini_batches:
                 if len(batchidx) == opt.batch_size:
