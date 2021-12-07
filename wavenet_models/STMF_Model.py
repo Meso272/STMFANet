@@ -69,7 +69,7 @@ class STMFModel(BaseModel):
 
     def backward_D(self):
         # fake
-        input_fake = torch.cat(self.inputs[:self.K] + self.pred, dim=1)
+        input_fake = torch.cat(self.inputs[:self.opt.K] + self.pred, dim=1)
         input_fake_ = Variable(input_fake.data)
         h_sigmoid, h = self.discriminator.forward(input_fake_, self.opt.batch_size)
         if len(self.gpu_ids) > 0:
