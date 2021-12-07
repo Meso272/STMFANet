@@ -65,6 +65,9 @@ class STMFModel(BaseModel):
 
     def forward(self):
         self.pred = self.generator.forward(self.inputs, self.state)
+        print(len(self.pred))
+        print(self.pred[0].shape)
+        
 
 
     def backward_D(self):
