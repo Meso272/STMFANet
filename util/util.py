@@ -72,7 +72,7 @@ def load_heat_data(data_path, start_idx,end_idx,image_size,dmax=100,dmin=0):#ima
     for i in range(start_idx,end_idx):
         data_array[i]=np.fromfile(os.path.join(data_path,"%d.dat" % i),dtype=np.float32).reshape((1,image_size[0],image_size[1]))
     data_array=(data_array-dmin)/(dmax-dmin)
-    return data_array
+    return torch.Tensor(data_array,dtype=torch.float32)
 
 def load_heat_sample(data_array, start_idx, K, T):
     inputs=[]
