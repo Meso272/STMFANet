@@ -37,7 +37,7 @@ class TrainOptions():
 
         self.parser.add_argument("--lr", type=float, default=0.0001, help="Base Learning Rate")
         self.parser.add_argument('--nepoch', type=int, default=100, help='# of epoch ')
-        self.parser.add_argument('--nepoch_decay', type=str, default=100, help='# of epoches at starting learning rate')
+        self.parser.add_argument('--nepoch_decay', type=str, default=0, help='# of epoches at starting learning rate')
         self.parser.add_argument('--continue_train', type=bool, default=False, help='continue train')
         self.parser.add_argument('--which_epoch', type=str, default='latest', help='laod which epoch')
         self.parser.add_argument("--alpha", type=float, dest="alpha", default=1.0, help="Image loss weight")

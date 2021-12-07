@@ -57,11 +57,11 @@ def main():
                         grid = util.visual_grid(visuals['seq_batch'], visuals['pred'], opt.K, opt.T)
                         writer.add_image('current_batch', grid, total_steps / opt.batch_size)
                     '''
-                    if total_steps % opt.save_latest_freq == 0:
+                    if total_steps % opt.save_latest_freq == 0 :
                         print('saving the latest model (epoch %d, total_steps %d)' %
                               (epoch, total_steps))
                         model.save('latest', epoch)
-
+        model.save('latest', epoch)
         print("end training")
 
 
