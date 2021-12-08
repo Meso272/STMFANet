@@ -71,8 +71,8 @@ def main():
             mean_pr=0
             the_count=0
 
-            for val_idx in range(opt.val_start,opt.val_end,opt.batch_size):
-                if val_idx+opt.batch_size-1+opt.K+opt.T>opt.val_end:
+            for val_idx in range(0,opt.val_end-opt.val_start,opt.batch_size):
+                if val_idx+opt.batch_size-1+opt.K+opt.T>opt.val_end-opt.val_start:
                     break
                 val_input = parallel(delayed(util.load_heat_sample)(val_array, start_idx,opt.K, opt.T) for start_idx in
                                       range(val_idx,val_idx+opt.batch_size))
