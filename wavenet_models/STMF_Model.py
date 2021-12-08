@@ -75,11 +75,11 @@ class STMFModel(BaseModel):
         self.set_inputs(inputs)
         self.forward()
         the_pred=self.pred
-        targets=inputs[-self.opt.T:]
+        targets=inputs[:,:,:,:,-self.opt.T:]
         count=0
         pr=0
-        for i in range(len(targets)):
-            target_batch=targets[i]
+        for i in range(len(the_pred)):
+            target_batch=targets[:,:,:,:,i]
             pred_batch=the_pred[i]
             for j in range(targets.shape[0]):
                 print(target_batch[j].shape)
