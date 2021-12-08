@@ -79,7 +79,7 @@ def main():
                 val_input=torch.stack(val_input,dim=0)
                 mean_pr+=model.validate(val_input)
                 the_count+=1
-            print("val psnr:",mean_pr)
+            print("val psnr:",mean_pr/the_count)
             model.train()
             model.is_train=True
             
