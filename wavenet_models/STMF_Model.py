@@ -64,9 +64,8 @@ class STMFModel(BaseModel):
 
 
     def forward(self):
-        print(len(self.inputs))
-        print(self.inputs[0].shape)
-        self.pred = self.generator.forward(self.inputs, self.state)#T*BCHW
+        #input:(K+T)*BCHW
+        self.pred = self.generator.forward(self.inputs, self.state)#pred: T*BCHW
     
 
 
@@ -74,7 +73,20 @@ class STMFModel(BaseModel):
         if keep_state:
             old_state=self.state
         self.set_inputs(inputs)
-        #pred=self.forward()
+        the_pred=self.forward()
+        targets=inputs[-T:]
+        count=0
+        pr=0
+        for i in range(len(targets)):
+            target_batch=targets[i]
+            pred_batch=the_pred[i]
+            for j in range(targets.shape[0]):
+                pr+=psnr(target_batch[j],pred_batch[j])
+                count+=1
+        if keep_state:
+            self.state=old_state
+        return pr/count
+
 
         
 

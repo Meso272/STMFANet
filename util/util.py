@@ -2,6 +2,15 @@ import random
 import numpy as np
 import torchvision.utils as vutils
 import os
+import torch
+from math import log10
+def psnr(true,pred):
+    mse=torch.nn.MSELoss(true,pred)
+    #print(mse)
+    r=20*log10(torch.max(true)-torch.min(true))-10*log10(mse)
+    #print(r)
+    #print(r)
+    return r
 def get_minibatches_idx(n, minibatch_size, shuffle=False):
   """
   Used to shuffle the dataset at each iteration.

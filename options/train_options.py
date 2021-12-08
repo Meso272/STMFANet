@@ -15,6 +15,8 @@ class TrainOptions():
         self.parser.add_argument('--data_min', type=float, default=0, help='data min')
         self.parser.add_argument('--train_start', type=int, default=0, help='train start')
         self.parser.add_argument('--train_end', type=int, default=4000, help='train end')
+        self.parser.add_argument('--val_start', type=int, default=4001, help='val start')
+        self.parser.add_argument('--val_end', type=int, default=6000, help='val end')
 
 
         self.parser.add_argument('--K', type=int, default=10, help='Number of frames to observe from the past')

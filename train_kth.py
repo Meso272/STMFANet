@@ -16,6 +16,7 @@ def main():
     #print('video num: %s' %len(trainfiles))
 
     data_array=util.load_heat_data(opt.data_path,opt.train_start,opt.train_end,[opt.image_size_x,opt.image_size_y],opt.data_max,opt.data_min)
+    val_array=util.load_heat_data(opt.data_path,opt.val_start,opt.val_end,[opt.image_size_x,opt.image_size_y],opt.data_max,opt.data_min)
 
 
     #create model
@@ -37,7 +38,7 @@ def main():
                     #shapes = np.repeat(np.array([opt.image_size]), opt.batch_size, axis=0)
                     output = parallel(delayed(util.load_heat_sample)(data_array, start_idx,k, t) for start_idx,  k, t in
                                       zip(batchidx,  Ks, Ts))
-                    output = torch.stack(output, dim=0)
+                    output = torch.stack(output, dim=0)#B*C*H*W*T
                     model.set_inputs(output)
                     model.optimize_parameters()
                     total_steps += 1
@@ -61,6 +62,26 @@ def main():
                         print('saving the latest model (epoch %d, total_steps %d)' %
                               (epoch, total_steps))
                         model.save('latest', epoch)
+            #validate
+            #need to switch the train/test status. using self.is_train
+            
+            model.is_train=False
+            model.eval()
+            val_start=opt.val_start
+            mean_pr=0
+            the_count=0
+
+            for val_idx in range(opt.val_start,opt.val_end,opt.batch_size):
+                if val_idx+batch_size-1+opt.K+opt.T>opt.val_end:
+                    break
+                val_input = parallel(delayed(util.load_heat_sample)(val_array, start_idx,opt.K, opt.T) for start_idx in
+                                      range(val_idx,opt.batch_size))
+                val_input=torch.stack(val_input,dim=0)
+                mean_pr+=model.validate(val_input)
+                the_count+=1
+            model.train()
+            model.is_train=True
+            
         model.save('latest', epoch)
         print("end training")
 
