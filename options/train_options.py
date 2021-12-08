@@ -58,7 +58,7 @@ class TrainOptions():
                                  help='frequency of showing training results on console')
         self.parser.add_argument('--display_freq', type=int, default=1000,
                                  help='frequency of showing training results on screen')
-        self.parser.add_argument('--save_latest_freq', type=int, default=10,
+        self.parser.add_argument('--save_latest_freq', type=int, default=5,
                                  help='frequency of saving the latest results')
 
         self.is_train = True

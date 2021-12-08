@@ -150,7 +150,7 @@ def print_current_errors(epoch, i, errors, checkpoints_dir, name):
     log_dir=os.path.join(checkpoints_dir, name)
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
-    message = 'epoch: %d, iters: %d' % (epoch, i)
+    message = 'epoch: %d, iters: %d ' % (epoch, i)
     for k, v in errors.items():
         if k.startswith('Update'):
             message += '%s: %s ' % (k, str(v))
