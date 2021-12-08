@@ -74,7 +74,7 @@ class STMFModel(BaseModel):
             old_state=self.state
         self.set_inputs(inputs)
         the_pred=self.forward()
-        targets=inputs[-T:]
+        targets=inputs[-self.opt.T:]
         count=0
         pr=0
         for i in range(len(targets)):
