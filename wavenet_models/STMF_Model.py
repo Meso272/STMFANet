@@ -64,7 +64,8 @@ class STMFModel(BaseModel):
 
 
     def forward(self):
-        print(self.inputs.shape)
+        print(len(self.inputs))
+        print(self.inputs.shape[0])
         self.pred = self.generator.forward(self.inputs, self.state)#T*BCHW
     
 
