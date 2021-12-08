@@ -75,7 +75,7 @@ def main():
                 if val_idx+opt.batch_size-1+opt.K+opt.T>opt.val_end:
                     break
                 val_input = parallel(delayed(util.load_heat_sample)(val_array, start_idx,opt.K, opt.T) for start_idx in
-                                      range(val_idx,opt.batch_size))
+                                      range(val_idx,val_idx+opt.batch_size))
                 val_input=torch.stack(val_input,dim=0)
                 mean_pr+=model.validate(val_input)
                 the_count+=1
