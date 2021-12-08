@@ -79,7 +79,7 @@ def load_kth_data(f_name, data_path, image_size, K, T):
 def load_heat_data(data_path, start_idx,end_idx,image_size,dmax=100,dmin=0):#image_size: [x,y]
     data_array=np.zeros((end_idx-start_idx,1,image_size[0],image_size[1]))
     for i in range(start_idx,end_idx):
-        data_array[i]=np.fromfile(os.path.join(data_path,"%d.dat" % i),dtype=np.float32).reshape((1,image_size[0],image_size[1]))
+        data_array[i-start_idx]=np.fromfile(os.path.join(data_path,"%d.dat" % i),dtype=np.float32).reshape((1,image_size[0],image_size[1]))
     data_array=(data_array-dmin)/(dmax-dmin)
     return torch.tensor(data_array,dtype=torch.float32)
 
