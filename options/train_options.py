@@ -43,7 +43,7 @@ class TrainOptions():
         self.parser.add_argument('--nepoch', type=int, default=100, help='# of epoch ')
         self.parser.add_argument('--nepoch_decay', type=str, default=0, help='# of epoches at starting learning rate')
         self.parser.add_argument('--continue_train', type=bool, default=False, help='continue train')
-        self.parser.add_argument('--which_epoch', type=str, default='latest', help='laod which epoch')
+        self.parser.add_argument('--which_epoch', type=str, default='latest', help='load which epoch')
         self.parser.add_argument("--alpha", type=float, dest="alpha", default=1.0, help="Image loss weight")
         self.parser.add_argument("--beta", type=float, default=1.0, help='D loss weight')
         self.parser.add_argument("--beta1", type=float, default=0.9, help='Adam Beta1')
@@ -54,11 +54,11 @@ class TrainOptions():
                                  help='multiply by a gamma every lr_decay_iters iterations')
         self.parser.add_argument('--start_epoch', type=int, default=1,
                                  help='the starting epoch count, we save the model by <epoch_count>, <epoch_count>+<save_latest_freq>, ...')
-        self.parser.add_argument('--print_freq', type=int, default=1000,
+        self.parser.add_argument('--print_freq', type=int, default=10,
                                  help='frequency of showing training results on console')
         self.parser.add_argument('--display_freq', type=int, default=1000,
                                  help='frequency of showing training results on screen')
-        self.parser.add_argument('--save_latest_freq', type=int, default=1000,
+        self.parser.add_argument('--save_latest_freq', type=int, default=10,
                                  help='frequency of saving the latest results')
 
         self.is_train = True

@@ -58,13 +58,12 @@ def main():
                         grid = util.visual_grid(visuals['seq_batch'], visuals['pred'], opt.K, opt.T)
                         writer.add_image('current_batch', grid, total_steps / opt.batch_size)
                     '''
-                    if total_steps % opt.save_latest_freq == 0 :
-                        print('saving the latest model (epoch %d, total_steps %d)' %
-                              (epoch, total_steps))
-                        model.save('latest', epoch)
+                    
             #validate
             #need to switch the train/test status. using self.is_train
-            
+            if total_steps % opt.save_latest_freq == 0 :
+                print('saving the latest model (epoch %d, total_steps %d)' %(epoch, total_steps))
+                model.save('latest', epoch)
             model.is_train=False
             model.eval()
             val_start=opt.val_start
@@ -77,9 +76,9 @@ def main():
                 val_input = parallel(delayed(util.load_heat_sample)(val_array, start_idx,opt.K, opt.T) for start_idx in
                                       range(val_idx,val_idx+opt.batch_size))
                 val_input=torch.stack(val_input,dim=0)
-                mean_pr+=model.validate(val_input)
+                mean_pr+=model.validate(val_input,keep_state=True)
                 the_count+=1
-            print("val psnr:",mean_pr/the_count)
+            print("epoch: ",epoch,", val psnr: ",mean_pr/the_count)
             model.train()
             model.is_train=True
             
