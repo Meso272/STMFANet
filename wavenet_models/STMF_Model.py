@@ -82,8 +82,8 @@ class STMFModel(BaseModel):
             target_batch=targets[:,:,:,:,i]
             pred_batch=the_pred[i]
             for j in range(targets.shape[0]):
-                print(target_batch[j].shape)
-                print(pred_batch[j].shape)
+                print(target_batch[j])
+                print(pred_batch[j])
                 pr+=util.psnr(target_batch[j],pred_batch[j])
                 count+=1
         if keep_state:
