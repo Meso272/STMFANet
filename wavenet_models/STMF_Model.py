@@ -64,9 +64,17 @@ class STMFModel(BaseModel):
 
 
     def forward(self):
-        self.pred = self.generator.forward(self.inputs, self.state)
-        print(len(self.pred))
-        print(self.pred[0].shape)
+        print(self.inputs.shape)
+        self.pred = self.generator.forward(self.inputs, self.state)#T*BCHW
+    
+
+
+    def validate(self,inputs,keep_state=True):
+        if keep_state:
+            old_state=self.state
+        self.set_inputs(inputs)
+        #pred=self.forward()
+
         
 
 
